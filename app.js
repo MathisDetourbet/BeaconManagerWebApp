@@ -97,6 +97,8 @@ app.use('/', users);
 app.use('/', companies);
 app.use('/', registration);
 app.use('/', login);
+app.use('/', about);
+app.use('/', contact);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
