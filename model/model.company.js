@@ -2,7 +2,6 @@ var mongoose 	= require('mongoose');
 var Schema 		= mongoose.Schema;
 
 var companySchema = new mongoose.Schema({
-	id 				: Schema.ObjectId,
 	name			: { type : String, required: true, unique: true },
 	users_staff		: [{ type : Schema.Types.ObjectId, ref: 'UsersModel' }],
 	api_token		: { type : String, required: true, unique: true },
