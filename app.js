@@ -57,6 +57,8 @@ if (app.get('env') === 'production') {
 // Inject Data Models
 require('./model/model.company');
 require('./model/model.user');
+require('./model/model.content');
+require('./model/model.beacon');
 
 // Setup routes
 var index         = require('./routes/route.index');
@@ -67,6 +69,7 @@ var login         = require('./routes/route.login');
 var about         = require('./routes/route.about');
 var contact       = require('./routes/route.contact');
 var dashboard     = require('./routes/route.dashboard');
+var settings      = require('./routes/route.settings');
 
 app.use('/', index);
 app.use('/', users);
@@ -76,6 +79,7 @@ app.use('/', login);
 app.use('/', about);
 app.use('/', contact);
 app.use('/', dashboard);
+app.use('/', settings);
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {

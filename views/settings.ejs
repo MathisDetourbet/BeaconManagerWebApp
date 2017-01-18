@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  
+    <% include parts/header.ejs %>
+
+    <title><%=title%></title>
+
+  </head>
+  <body>
+
+    <div class="container">
+
+    <% include parts/nav.dashboard.ejs %>
+
+      <h1>Settings</h1>
+      
+      <p>Your API KEY: <%=api_key=%></p>
+
+    <% include parts/footer.ejs %>
+    
+    <script type="text/javascript" src="/lib/jQuery/jquery.3.1.1.min.js"></script>
+    <script type="text/javascript" src="javascripts/main.js"></script>
+
+  </body>
+</html>
