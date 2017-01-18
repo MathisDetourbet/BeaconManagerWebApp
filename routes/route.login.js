@@ -21,11 +21,14 @@ router.post('/login', function(req, res, next) {
 			req.flash('info', 'Something went wrong on the server... Try again later.');
 			res.redirect('login');
 
-		} else if (user === undefined || user === [] || user === '') {
+		} else if (user === undefined || user === null) {
 			// not user found with the email given in the request body
 			// return 'bad email or password' to the user
+			req.flash('info', 'Bad email or password.');
+			res.redirect('login');
 
 		} else {
+			console.log('user found: ' + user);
 			// user found in database with email given in the request body
 			// now we need to check the password
 			var givenPassword = req.body.password;

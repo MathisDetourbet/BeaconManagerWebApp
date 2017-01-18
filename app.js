@@ -70,6 +70,7 @@ var about         = require('./routes/route.about');
 var contact       = require('./routes/route.contact');
 var dashboard     = require('./routes/route.dashboard');
 var settings      = require('./routes/route.settings');
+var addBeacon     = require('./routes/route.addBeacon');
 
 app.use('/', index);
 app.use('/', users);
@@ -80,6 +81,7 @@ app.use('/', about);
 app.use('/', contact);
 app.use('/', dashboard);
 app.use('/', settings);
+app.use('/', addBeacon);
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {

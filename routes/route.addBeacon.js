@@ -4,16 +4,17 @@ var mongoose 	= require('mongoose');
 var bcrypt      = require('bcrypt-nodejs');
 
 var router          = express.Router();
+var BeaconModel     = mongoose.model('BeaconsModel');
 var UsersModel 		= mongoose.model('UsersModel');
 var CompaniesModel 	= mongoose.model('CompaniesModel');
 
 // GET /registration page
-router.get('/registration', function(req, res, next) {
+router.get('/addBeacon', function(req, res, next) {
   	res.render('registration', { title: 'Registration', error: { message: req.flash('info') } } );
 });
 
 // POST /registration page
-router.post('/registration', function(req, res, next) {
+router.post('/addBeacon', function(req, res, next) {
 	console.log('ROUTES: POST /registration');
 
 	if (req.body.password !== req.body.password_confirm) {
@@ -22,8 +23,8 @@ router.post('/registration', function(req, res, next) {
         res.redirect('registration');
     } else {
     	// check if the company already exists
-        CompaniesModel.find({
-            name: req.body.name
+        BeaconModel.find({
+            name   : req.body.name
 
         }, function (err, companiesList) {
             if (err) {
@@ -31,7 +32,7 @@ router.post('/registration', function(req, res, next) {
                 req.flash('info', 'Something went wrong on the server... Try again later.');
                 res.redirect('registration');
 
-            } else if (companiesList !== undefined && companiesList !== []) {
+            } else if (companiesList !== null && companiesList !== "" && companiesList === []) {
                 // company already exist in the database.
                 req.flash('info', 'This company name is not available. Please submit another one.');
                 res.redirect('registration');
