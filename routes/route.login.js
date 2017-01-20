@@ -21,7 +21,7 @@ router.post('/login', function(req, res, next) {
 			req.flash('info', 'Something went wrong on the server... Try again later.');
 			res.redirect('login');
 
-		} else if (user === undefined || user === null) {
+		} else if (user === undefined || user === null || user === '') {
 			// not user found with the email given in the request body
 			// return 'bad email or password' to the user
 			req.flash('info', 'Bad email or password.');

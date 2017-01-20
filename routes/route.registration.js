@@ -22,16 +22,17 @@ router.post('/registration', function(req, res, next) {
         res.redirect('registration');
     } else {
     	// check if the company already exists
-        CompaniesModel.find({
+        CompaniesModel.findOne({
             name: req.body.name
 
         }, function (err, companiesList) {
+            console.log('Companies.find(): ' + companiesList);
             if (err) {
                 console.warn(err);
                 req.flash('info', 'Something went wrong on the server... Try again later.');
                 res.redirect('registration');
 
-            } else if (companiesList !== undefined && companiesList !== []) {
+            } else if (companiesList !== undefined && companiesList !== null && companiesList !== "") {
                 // company already exist in the database.
                 req.flash('info', 'This company name is not available. Please submit another one.');
                 res.redirect('registration');
@@ -73,8 +74,6 @@ router.post('/registration', function(req, res, next) {
                             api_token   : api_token
                         });
 
-                        userInstance.company = companyInstance;
-
                         userInstance.save(function(err) {
                             if (err) {
                                 if (err.name == 'ValidationError') {
@@ -98,7 +97,7 @@ router.post('/registration', function(req, res, next) {
                                     } else {
                                         console.log('new company added to the database.');
                                         console.log('company: ' + companyInstance);
-                                        res.redirect('/index');
+                                        res.redirect('home');
                                     }
                                 });
                             }
