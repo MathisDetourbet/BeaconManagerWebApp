@@ -6,8 +6,21 @@ var mongoose 		= require('mongoose');
 var router 			= express.Router();
 var ContentsModel 	= mongoose.model('ContentsModel');
 
+router.get('/contents.json', function(req, res, next) {
+	
+	ContentsModel.find({}, function(err, contents) {
+		if (err) {
+			console.warn(err);
+		} else {
+			res.json(contents);
+		}
+	});
+});
+
 router.get('/addContent', function(req, res, next) {
-	res.render('addContent', { title: 'Add content' , beaconsList: ['beacon1', 'beacon2', 'beacon3'], error: req.flash('info') });
+	res.render('addContent', {  title: 'Add content', 
+								beaconsList: ['beacon1', 'beacon2', 'beacon3'], 
+								error: req.flash('info') });
 });
 
 router.post('/addContent', function(req, res, next) {
@@ -17,7 +30,7 @@ router.post('/addContent', function(req, res, next) {
 	if (req.body.content_title !== undefined && req.body.title) {
 		var contentInstance = new ContentsModel({
 			title: req.body.content_title,
-			text: req.body.content_text,
+			text: req.body.content_text
 		});
 
 		contentInstance.save(function(err) {
@@ -39,7 +52,7 @@ router.post('/addContent', function(req, res, next) {
 		});
 	} else {
 		console.log('req.body.content_title is undefined or empty.');
-		req.flash('info', 'Something went wrong on the server... Try again later.');
+		req.flash('info', 'Field "title" is required.');
 		res.redirect('addContent');
 	}
 });
