@@ -12,8 +12,9 @@ router.get('/addContent', function(req, res, next) {
 
 router.post('/addContent', function(req, res, next) {
 	console.log('ROUTE: POST /addContent');
+	console.log('title: ' + req.body.content_title);
 
-	if (req.body.content_title !== undefined && req.body.title !== '') {
+	if (req.body.content_title !== undefined && req.body.title) {
 		var contentInstance = new ContentsModel({
 			title: req.body.content_title,
 			text: req.body.content_text,

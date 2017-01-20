@@ -41,5 +41,8 @@
   "bugs": {
     "url": "https://github.com/MathisDetourbet/BeaconManagerWebApp/issues"
   },
-  "homepage": "https://github.com/MathisDetourbet/BeaconManagerWebApp#readme"
+  "homepage": "https://github.com/MathisDetourbet/BeaconManagerWebApp#readme",
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
 }
