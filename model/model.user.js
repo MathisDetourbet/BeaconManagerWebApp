@@ -5,7 +5,7 @@ var userSchema = new Schema({
 	first_name     	: { type: String, required: true, match: /^[a-zàâçéèêëîïôûùüÿñæœ-]+$/i },
     last_name      	: { type: String, required: true, match: /^[a-zàâçéèêëîïôûùüÿñæœ-]+$/i },
     email         	: { type: String, required: true, match: /^[a-zA-Z0-9]([-_.]?[a-zA-Z0-9])*@[a-zA-Z0-9]([-.]?[a-zA-Z0-9])*\.([a-z]{2,4})$/ },
-    password      	: { type: String, required: true},
+    password      	: { type: String, required: true },
     date_creation  	: { type: Date, default : Date.now }
 });
 
