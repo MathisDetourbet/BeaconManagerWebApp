@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  
+    <% include parts/header.ejs %>
+
+    <title><%=title%></title>
+
+  </head>
+  <body>
+
+    <div class="container">
+
+    <% include parts/nav.dashboard.ejs %>
+
+    <form class="form-horizontal" action="/addContent" method="POST">
+      <fieldset>
+        <div id="legend">
+          <legend>Add a new content</legend>
+        </div>
+        <div class="control-group">
+          <!-- Title -->
+          <label class="control-label"  for="content_title">Title</label>
+          <div class="controls">
+            <input type="text" id="content_title" name="content_title" class="input-xlarge">
+          </div>
+        </div>
+
+        <br />
+     
+        <div class="control-group">
+          <!-- Text -->
+          <label class="control-label" for="content_text">Text</label>
+          <div class="controls">
+          <textarea class="form-control" rows="5" id="content_text" name="content_text"></textarea>
+          </div>
+        </div>
+
+        <br />
+
+        <div class="control-group">
+          <!-- Beacon -->
+          <label class="control-label" for="content_beacon">Beacon</label>
+          
+          <select class="form-control" name="content_beacon">
+              <option>Select the beacon in the list</option>
+            <% for (var i=0; i<beaconsList.length; i++) { %>
+              <option value="<%=beaconsList[i]%>"><%= beaconsList[i] %></option>
+            <% } %>
+          </select>
+
+          <div class="controls">
+            <p class="help-block">Select in the list the beacon to link with</p>
+          </div>
+        </div>
+
+        <br />
+        <br />
+     
+        <div class="control-group">
+          <!-- Save & quit -->
+          <div class="controls">
+            <button type="submit" class="btn btn-success" name="submit" value="dashboard">Save</button>
+          </div>
+        </div>
+        </br>
+        <div class="control-group">
+          <!-- Save & continue -->
+          <div class="controls">
+            <button type="submit" class="btn btn-primary" name="submit" value="addContent">Save and add another content</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+
+    <% include parts/footer.ejs %>
+    
+    <script type="text/javascript" src="/lib/jQuery/jquery.3.1.1.min.js"></script>
+    <script type="text/javascript" src="javascripts/main.js"></script>
+
+  </body>
+</html>
