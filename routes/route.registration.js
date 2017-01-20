@@ -77,7 +77,6 @@ router.post('/registration', function(req, res, next) {
                         userInstance.save(function(err) {
                             if (err) {
                                 if (err.name == 'ValidationError') {
-                                    console.log('### ValidationError ###');
                                     for (field in err.errors) {
                                       console.log(field);
                                     }

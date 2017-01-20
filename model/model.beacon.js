@@ -6,7 +6,7 @@ var beaconSchema = new Schema({
 	major			: { type: String, required: true },
 	minor			: { type: String, required: true },
 	alias			: { type: String, required: true },
-	content			: { type: Schema.Types.ObjectId, ref: 'ContentsModel' },
+	content			: [{ type: Schema.Types.ObjectId, ref: 'ContentsModel' }],
 	date_creation	: { type: Date, default: Date.now }
 });
 

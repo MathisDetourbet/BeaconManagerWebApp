@@ -4,6 +4,7 @@ var Schema 		= mongoose.Schema;
 var companySchema = new Schema({
 	name			: { type: String, required: true, unique: true },
 	users_staff		: [{ type: Schema.Types.ObjectId, ref: 'UsersModel' }],
+	beacons			: [{ type: Schema.Types.ObjectId, ref: 'BeaconsModel' }],
 	api_token		: { type: String, required: true, unique: true },
     date_creation  	: { type: Date, default: Date.now }
 });
