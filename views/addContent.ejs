@@ -13,6 +13,10 @@
 
     <% include parts/nav.dashboard.ejs %>
 
+    <% if (error !== undefined) { %>
+      <% include parts/error.ejs %>
+    <% } %>
+
     <form class="form-horizontal" action="/addContent" method="POST">
       <fieldset>
         <div id="legend">
