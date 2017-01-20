@@ -44,14 +44,16 @@
                 <td><%=beacons[i].minor%></td>
                 <td>Beacon content</td>
                 <td>
-
-                  <form class="form-vertical" action="/removeBeacon/<%=beacons[i]._id%>">
-                    <button class="btn btn-success">Edit</button>
-                  </form>
-                  
-                  <form class="form-vertical" action="/removeBeacon/<%=beacons[i]._id%>">
-                    <button type="submit" class="btn btn-danger">Del</button>
-                  </form>
+                  <a href="/editBeacon/<%=beacons[i]._id%>">
+                    <input class="btn btn-warning" type="button" value="Modif">
+                  </a>
+                  <!-- <form action="/removeBeacon/<%=beacons[i]._id%>" method="PUT">
+                    
+                    <button type="submit" class="btn btn-danger">DELETE</button>
+                  </form> -->
+                  <a href="/removeBeacon/<%=beacons[i]._id%>" >
+                    <input class="btn btn-danger"type="button" value="Del">
+                  </a>
                 </td>
                
 

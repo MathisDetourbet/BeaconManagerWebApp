@@ -44,4 +44,16 @@ router.post('/addContent', function(req, res, next) {
 	}
 });
 
+router.get('/removeBeacon/:_id', function (req, res, next) {
+	BeaconsModel.remove({_id: new ObjectID(req.params._id)}, function (err, result) {
+        if (!err) {
+        	res.redirect('/beaconsList');
+        } else {
+        	console.log(err);
+            throw err;
+        }
+        
+    });
+});
+
 module.exports = router;

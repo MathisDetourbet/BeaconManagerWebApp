@@ -18,7 +18,7 @@ router.get('/beaconsList',auth_check, function (req, res, next) {
 
 				if(!err){
 					res.render('beaconsList', {
-						title : 'Beacon List', 
+						title : 'Beacons', 
 						error : { 
 							message: req.flash('info')
 						}, 
@@ -46,16 +46,5 @@ router.get('/beaconsList',auth_check, function (req, res, next) {
 		}
 	}); 
 }); 
-router.get('/removeBeacon/:_id', function (req, res, next) {
-	BeaconsModel.remove({_id: new ObjectID(req.params._id)}, function (err, result) {
-            if (!err) {
-            	res.redirect('/beaconsList');
-            } else {
-            	console.log(err);
-                throw err;
-            }
-            
-        });
-})
 
 module.exports = router;
