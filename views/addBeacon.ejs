@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+  <% include parts/header.ejs %>
+  <title><%= title %></title>
+</head>
+  <body>
+    <div class="container">
+      <% include parts/nav.dashboard.ejs %>
+
+      </br>
+
+      <% if (error !== undefined) { %>
+        <% include parts/error.ejs %>
+      <% } %>
+
+      <form class="form-horizontal" action="/addBeacon" method="POST">
+        <fieldset>
+          <div id="legend">
+            <legend class="">Add New Beacon</legend>
+          </div>
+          <div class="control-group">
+            <!-- UUID -->
+            <label class="control-label"  for="uuid">UUID</label>
+            <div class="controls">
+              <input type="text" id="uuid" name="uuid" placeholder="" class="input-xlarge">
+            </div>
+          </div>
+
+          <br/>
+       
+          <div class="control-group">
+            <!-- Major -->
+            <label class="control-label" for="major">Major</label>
+            <div class="controls">
+              <input type="text" id="major" name="major" placeholder="" class="input-xlarge">
+              <p class="help-block">Please provide the beacon's major</p>
+            </div>
+          </div>
+
+          <br/>
+       
+          <div class="control-group">
+            <!-- Minor -->
+            <label class="control-label" for="lastname">Minor</label>
+            <div class="controls">
+              <input type="text" id="minor" name="minor" placeholder="" class="input-xlarge">
+              <p class="help-block">Please provide the beacon's minor</p>
+            </div>
+          </div>
+
+          <br/>
+       
+          <div class="control-group">
+            <!-- Alias -->
+            <label class="control-label" for="alias">Alias</label>
+            <div class="controls">
+              <input type="text" id="alias" name="alias" placeholder="" class="input-xlarge">
+              <p class="help-block">Please provide the beacon's alias</p>
+            </div>
+          </div>
+
+          <br/>
+       
+          <div class="control-group">
+            <!-- Button -->
+            <div class="controls">
+              <button type="submit" class="btn btn-success">Save</button>
+            </div>
+            <div class="controls">
+              <button type="submit" formaction ="/addBeacon" class="btn btn-success">Save and continue</button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+
+    <% include parts/footer.ejs %>
+
+    <script type="text/javascript" src="/lib/jQuery/jquery.3.1.1.min.js"></script>
+    <script type="text/javascript" src="javascripts/main.js"></script>
+
+  </body>
+</html>

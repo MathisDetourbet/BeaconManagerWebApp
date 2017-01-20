@@ -72,6 +72,7 @@ var dashboard     = require('./routes/route.dashboard');
 var settings      = require('./routes/route.settings');
 var addBeacon     = require('./routes/route.addBeacon');
 var addContent    = require('./routes/route.addContent');
+var beacons       = require('./routes/route.beacons');
 
 app.use('/', index);
 app.use('/', users);
@@ -82,6 +83,7 @@ app.use('/', about);
 app.use('/', contact);
 app.use('/', dashboard);
 app.use('/', settings);
+app.use('/', beacons);
 app.use('/', addBeacon);
 app.use('/', addContent);
 
