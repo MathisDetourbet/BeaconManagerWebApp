@@ -1,6 +1,7 @@
 var express 	= require('express'); 
 var mongoose 	= require('mongoose'); 
-var auth_check		= require('../custom_middleware/auth_check');
+var auth_check	= require('../custom_middleware/auth_check');
+var ObjectID 	= require('mongodb').ObjectID;
 
 var router 			= express.Router(); 
 var BeaconsModel 	= mongoose.model('BeaconsModel'); 
@@ -45,6 +46,17 @@ router.get('/beaconsList',auth_check, function (req, res, next) {
 		}
 	}); 
 }); 
-
+router.delete('/removeBeacon/:_id', function (req, res, next) {
+	BeaconsModel.remove({_id: new ObjectID(req.params._id)}, {safe: true}, function (err, result) {
+            if (!err) {
+            	res.redirect('/beaconsList');
+            	console.log(result);
+            } else {
+            	console.log(err);
+                throw err;
+            }
+            
+        });
+})
 
 module.exports = router;

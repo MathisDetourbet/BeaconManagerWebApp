@@ -42,10 +42,10 @@
                 <td><%=beacons[i].uuid%></td>
                 <td><%=beacons[i].major%></td>
                 <td><%=beacons[i].minor%></td>
-                <td>Beacon content</td>
+                <td><%=beacons[i]._id%></td>
                 <td>
                   <button class="btn btn-success">Modif</button>
-                  <button class="btn btn-error">Del</button>
+                  <a href="/removeBeacon/<%=beacons[i]._id%>" ><input class="btn btn-success"type="button" value="Del"></a>
                 </td>
                
 
