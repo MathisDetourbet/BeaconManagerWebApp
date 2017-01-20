@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+  <head>
+
+    <% include parts/header.ejs %>
+
+    <title><%= title %></title>
+
+  </head>
+
+  <body>
+    <div class="container">
+
+      <% include parts/nav.ejs %>
+
+      <h1>Beacon List</h1>
+      <a href="/addBeacon"> <input class="btn btn-success"type="button" value="Add"></a>
+      
+    
+      <% if (error !== undefined) { %>
+        <% include parts/error.ejs %>
+      <% } %>
+
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>N°</th>
+              <th>Alias</th>
+              <th>UUID</th>
+              <th>Major</th>
+              <th>Minor</th>
+              <th>Content</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(var i=0; i<beacons.length; i++) {%>
+              <tr>
+                <td><%=i%></td>
+                <td><%=beacons[i].alias%></td>
+                <td><%=beacons[i].uuid%></td>
+                <td><%=beacons[i].major%></td>
+                <td><%=beacons[i].minor%></td>
+                <td>Beacon content</td>
+                <td>
+                  <button class="btn btn-success">Modif</button>
+                  <button class="btn btn-error">Del</button>
+                </td>
+               
+
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <% include parts/footer.ejs %>
+
+    <script type="text/javascript" src="/lib/jQuery/jquery.3.1.1.min.js"></script>
+    <script type="text/javascript" src="javascripts/main.js"></script>
+
+  </body>
+</html>
