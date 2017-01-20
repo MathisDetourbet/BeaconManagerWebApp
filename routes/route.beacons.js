@@ -46,11 +46,10 @@ router.get('/beaconsList',auth_check, function (req, res, next) {
 		}
 	}); 
 }); 
-router.delete('/removeBeacon/:_id', function (req, res, next) {
-	BeaconsModel.remove({_id: new ObjectID(req.params._id)}, {safe: true}, function (err, result) {
+router.get('/removeBeacon/:_id', function (req, res, next) {
+	BeaconsModel.remove({_id: new ObjectID(req.params._id)}, function (err, result) {
             if (!err) {
             	res.redirect('/beaconsList');
-            	console.log(result);
             } else {
             	console.log(err);
                 throw err;

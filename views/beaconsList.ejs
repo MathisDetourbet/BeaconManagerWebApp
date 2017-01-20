@@ -11,7 +11,7 @@
   <body>
     <div class="container">
 
-      <% include parts/nav.ejs %>
+      <% include parts/nav.dashboard.ejs %>
 
       <h1>Beacon List</h1>
       <a href="/addBeacon"> <input class="btn btn-success"type="button" value="Add"></a>
@@ -37,12 +37,12 @@
           <tbody>
             <% for(var i=0; i<beacons.length; i++) {%>
               <tr>
-                <td><%=i%></td>
+                <td><%=i+1%></td>
                 <td><%=beacons[i].alias%></td>
                 <td><%=beacons[i].uuid%></td>
                 <td><%=beacons[i].major%></td>
                 <td><%=beacons[i].minor%></td>
-                <td><%=beacons[i]._id%></td>
+                <td>Beacon content</td>
                 <td>
                   <button class="btn btn-success">Modif</button>
                   <a href="/removeBeacon/<%=beacons[i]._id%>" ><input class="btn btn-success"type="button" value="Del"></a>
