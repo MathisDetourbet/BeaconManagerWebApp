@@ -38,17 +38,9 @@
                 <td><%=contents[i].title%></td>
                 <td><%=contents[i].beacon%></td>
                 <td>
-
-                  <form class="form-vertical" action="/removeContent/<%=contents[i]._id%>">
-                    <button class="btn btn-success">Edit</button>
-                  </form>
-                  
-                  <form class="form-vertical" action="/removeContent/<%=contents[i]._id%>">
-                    <button type="submit" class="btn btn-danger">Del</button>
-                  </form>
+                    <button class="btn btn-warning">Edit</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
                 </td>
-               
-
               </tr>
             <% } %>
           </tbody>

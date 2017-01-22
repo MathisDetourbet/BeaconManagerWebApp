@@ -35,7 +35,7 @@
             </tr>
           </thead>
           <tbody>
-            <% for(var i=0; i<beacons.length; i++) {%>
+            <% for(var i=0; i<beacons.length; i++) { %>
               <tr>
                 <td><%=i+1%></td>
                 <td><%=beacons[i].alias%></td>
@@ -45,18 +45,16 @@
                 <td>Beacon content</td>
                 <td>
                   <a href="/editBeacon/<%=beacons[i]._id%>">
-                    <input class="btn btn-warning" type="button" value="Modif">
+                    <input class="btn btn-warning" type="button" value="Edit">
                   </a>
                   <!-- <form action="/removeBeacon/<%=beacons[i]._id%>" method="PUT">
                     
                     <button type="submit" class="btn btn-danger">DELETE</button>
                   </form> -->
                   <a href="/removeBeacon/<%=beacons[i]._id%>" >
-                    <input class="btn btn-danger"type="button" value="Del">
+                    <input class="btn btn-danger"type="button" value="Delete">
                   </a>
                 </td>
-               
-
               </tr>
             <% } %>
           </tbody>
