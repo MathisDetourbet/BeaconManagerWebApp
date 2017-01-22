@@ -18,7 +18,7 @@ router.get('/beaconsList', auth_check, function (req, res, next) {
 
 				if (!err) {
 					res.render('beaconsList', {
-						title : 'Beacon List', 
+						title : 'Beacons', 
 						error : { 
 							message: req.flash('info')
 						}, 
