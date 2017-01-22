@@ -8,6 +8,7 @@ var router 			= express.Router();
 var BeaconsModel 	= mongoose.model('BeaconsModel'); 
 var ContentsModel	= mongoose.model('ContentsModel'); 
 
+
 router.get('/beacons.json', auth_check, function(req, res, next) {
 	DatabaseManager.getBeaconsListByUserID(req.session.user_id, function(err, beacons) {
 		if (err) {
@@ -19,55 +20,40 @@ router.get('/beacons.json', auth_check, function(req, res, next) {
 });
 
 // GET beacon list page
-router.get('/beaconsList', auth_check, function (req, res, next) { 
-	BeaconsModel.find(function (err, beaconsList) {
-		if (!err) {
-			ContentsModel.find(function (err, contentsList) {
-				console.log("Find Beacon + Content"); 
-				console.log("beaconsList : ", beaconsList); 
-				console.log("contentsList : ", contentsList); 
-
-				if (!err) {
-					res.render('beaconsList', {
-						title : 'Beacons', 
-						error : { 
-							message: req.flash('info')
-						}, 
-						contents : contentsList, 
-						beacons : beaconsList
-					}); 
-				} else {
-					res.statusCode = 500;
-					console.log('Internal error(%d): %s', res.statusCode,err.message);
-					req.flash('info', 'Something went wrong on the server... Try again later.'); 		
-					
-					return res.json({ 
-						error: 'Server error' 
-					});
+router.get('/beaconsList', auth_check, function (req, res, next) {
+	DatabaseManager.getBeaconsListByUserID(req.session.user_id, function(err, beacons) {
+		if (err) {
+			console.warn(err);
+			res.render('beaconsList', {
+				title: "Beacons list",
+				beacons: [],
+				error: {
+					message: 'Something went wrong on the server... Try again later.'
 				}
-			}); 
-		} else {
-			res.statusCode = 500;
-			console.log('Internal error(%d): %s', res.statusCode,err.message);
-			req.flash('info', 'Something went wrong on the server... Try again later.'); 		
+			});
 
-			return res.json({ 
-				error: 'Server error' 
+		} else {
+			res.render('beaconsList', {
+				title : 'Beacons',
+				beacons : beacons,
+				error: undefined
 			});
 		}
-	}); 
+	});
 }); 
 
 router.get('/removeBeacon/:_id', function (req, res, next) {
-	BeaconsModel.remove({_id: new ObjectID(req.params._id)}, function (err, result) {
-            if (!err) {
-            	res.redirect('/beaconsList');
-            } else {
-            	console.log(err);
-                throw err;
-            }
-            
-        });
+	BeaconsModel.remove({
+		_id: new ObjectID(req.params._id)
+
+	}, function (err, result) {
+        if (!err) {
+        	res.redirect('/beaconsList');
+        } else {
+        	console.log(err);
+            throw err;
+        }   
+    });
 })
 
 module.exports = router;
