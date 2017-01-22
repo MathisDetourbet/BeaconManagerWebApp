@@ -8,17 +8,6 @@ var router 			= express.Router();
 var ContentsModel 	= mongoose.model('ContentsModel');
 var CompaniesModel	= mongoose.model('CompaniesModel');
 
-router.get('/contents.json', auth_check, function(req, res, next) {
-	
-	ContentsModel.find({}, function(err, contents) {
-		if (err) {
-			console.warn(err);
-		} else {
-			res.json(contents);
-		}
-	});
-});
-
 router.get('/addContent', auth_check, function(req, res, next) {
 
 	DatabaseManager.getBeaconsListByUserID(req.session.user_id, function(err, beacons) {

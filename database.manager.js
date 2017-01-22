@@ -5,7 +5,6 @@ var UsersModel 		= mongoose.model('UsersModel');
 var ContentsModel 	= mongoose.model('ContentsModel');
 var BeaconsModel 	= mongoose.model('BeaconsModel');
 
-
 /**
  * DatabaseManager - Manage the database
  * @constructor

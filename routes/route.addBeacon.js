@@ -25,9 +25,9 @@ router.post('/addBeacon', auth_check, function (req, res, next) {
 	console.log('ROUTES : POST /addBeacon');
 
 	if ((req.body.uuid  !== undefined && req.body.uuid  !== '') &&
-	   (req.body.major !== undefined && req.body.major !== '') &&
-	   (req.body.minor !== undefined && req.body.minor !== '') && 
-	   (req.body.alias !== undefined && req.body.alias !== '')) {
+	   (req.body.major  !== undefined && req.body.major !== '') &&
+	   (req.body.minor  !== undefined && req.body.minor !== '') && 
+	   (req.body.alias  !== undefined && req.body.alias !== '')) {
 
 	   	if ((/^\d+$/.test(req.body.major)) && (/^\d+$/.test(req.body.minor))) {
 

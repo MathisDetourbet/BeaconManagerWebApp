@@ -9,6 +9,17 @@ var ContentsModel 	= mongoose.model('ContentsModel');
 var CompaniesModel	= mongoose.model('CompaniesModel');
 var BeaconsModel	= mongoose.model('BeaconsModel');
 
+router.get('/contents.json', auth_check, function(req, res, next) {
+	
+	DatabaseManager.getContentsListByUserID(req.session.user_id, function(err, contents) {
+		if (err) {
+			console.warn(err);
+		} else {
+			res.json(contents);
+		}
+	});
+});
+
 router.get('/contentsList', auth_check, function(req, res, next) {
 	
 	DatabaseManager.getContentsListByUserID(req.session.user_id, function(err, contents) {
