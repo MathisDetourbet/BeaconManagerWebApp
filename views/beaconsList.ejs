@@ -47,10 +47,10 @@
                   <a href="/editBeacon/<%=beacons[i]._id%>">
                     <input class="btn btn-warning" type="button" value="Modif">
                   </a>
-                  <!-- <form action="/removeBeacon/<%=beacons[i]._id%>" method="PUT">
-                    
-                    <button type="submit" class="btn btn-danger">DELETE</button>
-                  </form> -->
+                  <form action="/removeBeacon/<%=beacons[i]._id%>" method="delete">
+                    <button type="submit" class="btn btn-danger">DELETE1</button>
+                  </form>
+
                   <a href="/removeBeacon/<%=beacons[i]._id%>" >
                     <input class="btn btn-danger"type="button" value="Del">
                   </a>
