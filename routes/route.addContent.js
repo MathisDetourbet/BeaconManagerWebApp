@@ -9,21 +9,23 @@ var ContentsModel 	= mongoose.model('ContentsModel');
 var CompaniesModel	= mongoose.model('CompaniesModel');
 
 router.get('/addContent', auth_check, function(req, res, next) {
-
+	
 	DatabaseManager.getBeaconsListByUserID(req.session.user_id, function(err, beacons) {
 		if (err) {
 			console.warn(err);
 			res.render('addContent', {  
-				title 		: 'Add content', 
-				beaconsList : [], 
-				error		: 'Something went wrong on the server... Please try again later.' 
+				title 				: 'Add content', 
+				beaconsAliasList 	: [], 
+				error				: 'Something went wrong on the server... Please try again later.' 
 			});
 		} else {
 			var beaconsAliasList = [];
 
 			for (var i = beacons.length - 1; i >= 0; i--) {
-				beaconsAlias.push(beacons[i].alias);
+				beaconsAliasList.push(beacons[i].alias);
 			}
+
+			console.log('beaconsAliasList: ' + beaconsAliasList);
 
 			res.render('addContent', {  
 				title 				: 'Add content', 
