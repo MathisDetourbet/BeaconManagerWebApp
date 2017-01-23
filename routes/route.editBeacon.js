@@ -9,16 +9,15 @@ var BeaconsModel 	= mongoose.model('BeaconsModel');
 
 // GET edit beacon page
 router.get('/editBeacon/:_id', function (req, res, next) {
-	console.log('ROUTE : GET /addBeacon'); 
-
-	Beacon.findOne({_id : new ObjectId(req.params._id)}, function (err,beacon))
-	res.render('editBeacon',{
-		title 	: 'Add New Beacon', 
-		beacon 	: beacon,
-		error 	: {
-			message: req.flash('info')
-		}
-	})
+	BeaconsModel.findOne({_id : new ObjectId(req.params._id)}, function (err,beacon){
+		res.render('editBeacon',{
+			title 	: 'Edit Beacon', 
+			beacon 	: beacon,
+			error 	: {
+				message: req.flash('info')
+			}
+		})
+	}); 
 }); 
 
 // PATCH /addBeacon page
