@@ -13,7 +13,7 @@
 
       <% include parts/nav.dashboard.ejs %>
 
-      <h1>Beacon List</h1>
+      <h1>Contents list</h1>
       <a href="/addContent"> <input class="btn btn-success"type="button" value="Add"></a>
       
     
@@ -37,21 +37,10 @@
                 <td><%=i+1%></td>
                 <td><%=contents[i].title%></td>
                 <td><%=contents[i].beacon%></td>
-                <td><%=contents[i].%></td>
-                <td><%=contents[i].%></td>
-                <td>Contents list</td>
                 <td>
-
-                  <form class="form-vertical" action="/removeContent/<%=contents[i]._id%>">
-                    <button class="btn btn-success">Edit</button>
-                  </form>
-                  
-                  <form class="form-vertical" action="/removeContent/<%=beacons[i]._id%>">
-                    <button type="submit" class="btn btn-danger">Del</button>
-                  </form>
+                    <button class="btn btn-warning">Edit</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
                 </td>
-               
-
               </tr>
             <% } %>
           </tbody>

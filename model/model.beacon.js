@@ -3,10 +3,11 @@ var Schema = mongoose.Schema;
 
 var beaconSchema = new Schema({
 	uuid			: { type: String, required: true },
-	major			: { type: String, required: true },
-	minor			: { type: String, required: true },
+	major			: { type: Number, required: true },
+	minor			: { type: Number, required: true },
 	alias			: { type: String, required: true },
 	content			: [{ type: Schema.Types.ObjectId, ref: 'ContentsModel' }],
+	company			: { type: Schema.Types.ObjectId, ref: 'CompaniesModel', required: true},
 	date_creation	: { type: Date, default: Date.now }
 });
 

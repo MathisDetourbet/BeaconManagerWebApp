@@ -1,55 +1,81 @@
 var express 		= require('express');
 var mongoose 		= require('mongoose');
 var auth_check		= require('../custom_middleware/auth_check');
+var DatabaseManager = require('../database.manager.js');
 var mongoose 		= require('mongoose');
 
 var router 			= express.Router();
 var ContentsModel 	= mongoose.model('ContentsModel');
+var CompaniesModel	= mongoose.model('CompaniesModel');
 
-router.get('/contents.json', function(req, res, next) {
-	
-	ContentsModel.find({}, function(err, contents) {
+router.get('/addContent', auth_check, function(req, res, next) {
+
+	DatabaseManager.getBeaconsListByUserID(req.session.user_id, function(err, beacons) {
 		if (err) {
 			console.warn(err);
+			res.render('addContent', {  
+				title 		: 'Add content', 
+				beaconsList : [], 
+				error		: 'Something went wrong on the server... Please try again later.' 
+			});
 		} else {
-			res.json(contents);
+			var beaconsAliasList = [];
+
+			for (var i = beacons.length - 1; i >= 0; i--) {
+				beaconsAlias.push(beacons[i].alias);
+			}
+
+			res.render('addContent', {  
+				title 				: 'Add content', 
+				beaconsAliasList 	: beaconsAliasList,
+				error				: undefined
+			});
 		}
 	});
 });
 
-router.get('/addContent', function(req, res, next) {
-	res.render('addContent', {  title: 'Add content', 
-								beaconsList: ['beacon1', 'beacon2', 'beacon3'], 
-								error: req.flash('info') });
-});
-
-router.post('/addContent', function(req, res, next) {
+router.post('/addContent', auth_check, function(req, res, next) {
 	console.log('ROUTE: POST /addContent');
-	console.log('title: ' + req.body.content_title);
+	console.log('content_title: ' + req.body.content_title);
 
-	if (req.body.content_title !== undefined && req.body.title) {
-		var contentInstance = new ContentsModel({
-			title: req.body.content_title,
-			text: req.body.content_text
-		});
+	if (req.body.content_title !== undefined && req.body.title !== '') {
 
-		contentInstance.save(function(err) {
+		DatabaseManager.getCompanyByUserID(req.session.user_id, function(err, company) {
 			if (err) {
-				console.log('error saving content into the database');
 				console.warn(err);
+				req.flash('info', "Something went wrong on the server... Please try again later.");
+				res.redirect('dashboard');
 
 			} else {
-				console.log('new content added to the database.');
+				var contentInstance = new ContentsModel({
+					title 	: req.body.content_title,
+					text 	: req.body.content_text,
+					company : company
+				});
 
-				if (req.body.submit === 'dashboard') {
-					res.redirect('home');
+				console.log('contentInstance: ' + contentInstance);
 
-				} else {
-					console.log('')
-					res.redirect('addContent');
-				}
+				contentInstance.save(function(err) {
+					if (err) {
+						console.log('error saving content into the database');
+						console.warn(err);
+
+					} else {
+						console.log('new content added to the database.');
+
+						if (req.body.submit === 'dashboard') {
+							// submit & quit
+							res.redirect('contentsList');
+
+						} else {
+							// submit & add another content
+							res.redirect('addContent');
+						}
+					}
+				});
 			}
 		});
+
 	} else {
 		console.log('req.body.content_title is undefined or empty.');
 		req.flash('info', 'Field "title" is required.');

@@ -1,50 +1,45 @@
-var express 	= require('express'); 
-var mongoose 	= require('mongoose'); 
-var auth_check	= require('../custom_middleware/auth_check');
-var ObjectID 	= require('mongodb').ObjectID;
+var express 		= require('express'); 
+var mongoose 		= require('mongoose'); 
+var auth_check		= require('../custom_middleware/auth_check');
+var ObjectID 		= require('mongodb').ObjectID;
+var DatabaseManager = require('../database.manager.js');
 
 var router 			= express.Router(); 
 var BeaconsModel 	= mongoose.model('BeaconsModel'); 
 var ContentsModel	= mongoose.model('ContentsModel'); 
 
-// GET beacon list page
-router.get('/beaconsList', auth_check, function (req, res, next) { 
-	BeaconsModel.find(function (err, beaconsList) {
-		if (!err) {
-			ContentsModel.find(function (err, contentsList) {
-				console.log("Find Beacon + Content"); 
-				console.log("beaconsList : ", beaconsList); 
-				console.log("contentsList : ", contentsList); 
 
-				if (!err) {
-					res.render('beaconsList', {
-						title : 'Beacons', 
-						error : { 
-							message: req.flash('info')
-						}, 
-						contents : contentsList, 
-						beacons : beaconsList
-					}); 
-				} else {
-					res.statusCode = 500;
-					console.log('Internal error(%d): %s', res.statusCode,err.message);
-					req.flash('info', 'Something went wrong on the server... Try again later.'); 		
-					
-					return res.json({ 
-						error: 'Server error' 
-					});
-				}
-			}); 
+router.get('/beacons.json', auth_check, function(req, res, next) {
+	DatabaseManager.getBeaconsListByUserID(req.session.user_id, function(err, beacons) {
+		if (err) {
+			console.warn(err);
 		} else {
-			res.statusCode = 500;
-			console.log('Internal error(%d): %s', res.statusCode,err.message);
-			req.flash('info', 'Something went wrong on the server... Try again later.'); 		
+			res.json(beacons);
+		}
+	});
+});
 
-			return res.json({ 
-				error: 'Server error' 
+// GET beacon list page
+router.get('/beaconsList', auth_check, function (req, res, next) {
+	DatabaseManager.getBeaconsListByUserID(req.session.user_id, function(err, beacons) {
+		if (err) {
+			console.warn(err);
+			res.render('beaconsList', {
+				title: "Beacons list",
+				beacons: [],
+				error: {
+					message: 'Something went wrong on the server... Try again later.'
+				}
+			});
+
+		} else {
+			res.render('beaconsList', {
+				title : 'Beacons',
+				beacons : beacons,
+				error: undefined
 			});
 		}
-	}); 
+	});
 }); 
 
 router.get('/removeBeacon/:_id', function (req, res, next) {
