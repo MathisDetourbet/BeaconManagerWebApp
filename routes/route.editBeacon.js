@@ -13,25 +13,26 @@ router.get('/editBeacon/:_id', function (req, res, next) {
 		res.render('editBeacon',{
 			title 	: 'Edit Beacon', 
 			beacon 	: beacon,
+			id		: req.params._id,
 			error 	: {
 				message: req.flash('info')
 			}
-		})
+		}) 
 	}); 
 }); 
 
 // PATCH /addBeacon page
-router.patch('/editBeacon/:_id', function (req, res, next) {
+router.post('/editBeacon/:_id/patch', function (req, res, next) {
 	console.log('ROUTE : PATCH /editBeacon'); 
 
-	var  beacon = new BeaconsModel({
+	var  beacon = {
 		uuid	: req.body.uuid,
-		major	: req.body.major,
-		minor	: req.body.minor, 
+		major	: Number(req.body.major),
+		minor	: Number(req.body.minor), 
 		alias 	: req.body.alias
-	}); 
+	};
 
-	beacon.patch({_id  : new ObjectId(_id)}, {$set: beacon},function (err) {
+	BeaconsModel.update({_id  : new ObjectId(req.params._id)}, {$set: beacon}, function (err) {
 		if (!err) {
 			console.log("Beacon edited with success id: %s", beacon.id);
 			return res.redirect('/beaconsList'); 

@@ -14,7 +14,7 @@
         <% include parts/error.ejs %>
       <% } %>
 
-      <form class="form-horizontal" action="/editBeacon" method="PATCH">
+      <form class="form-horizontal" action="/editBeacon/<%=id%>/patch" method="POST">
         <fieldset>
           <div id="legend">
             <legend class="">Edit Beacon</legend>
