@@ -9,7 +9,7 @@ var ContentsModel 	= mongoose.model('ContentsModel');
 var CompaniesModel	= mongoose.model('CompaniesModel');
 
 router.get('/addContent', auth_check, function(req, res, next) {
-	
+
 	DatabaseManager.getBeaconsListByUserID(req.session.user_id, function(err, beacons) {
 		if (err) {
 			console.warn(err);
@@ -24,8 +24,6 @@ router.get('/addContent', auth_check, function(req, res, next) {
 			for (var i = beacons.length - 1; i >= 0; i--) {
 				beaconsAliasList.push(beacons[i].alias);
 			}
-
-			console.log('beaconsAliasList: ' + beaconsAliasList);
 
 			res.render('addContent', {  
 				title 				: 'Add content', 
@@ -83,18 +81,6 @@ router.post('/addContent', auth_check, function(req, res, next) {
 		req.flash('info', 'Field "title" is required.');
 		res.redirect('addContent');
 	}
-});
-
-router.get('/removeBeacon/:_id', function (req, res, next) {
-	BeaconsModel.remove({_id: new ObjectID(req.params._id)}, function (err, result) {
-        if (!err) {
-        	res.redirect('/beaconsList');
-        } else {
-        	console.log(err);
-            throw err;
-        }
-        
-    });
 });
 
 module.exports = router;
