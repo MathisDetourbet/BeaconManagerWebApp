@@ -36,10 +36,25 @@
               <tr>
                 <td><%=i+1%></td>
                 <td><%=contents[i].title%></td>
-                <td><%=contents[i].beacon%></td>
+
+                <%if(beaconsAliasList !== undefined){%>
+                <% for(var j=0; j<beaconsAliasList.length; j++) { %>
+                <td><%=beaconsAliasList[j]%></td>
+                <%}}else {%>
+                <td>No Beacon assigned</td>
+                <%}%>
                 <td>
-                    <button class="btn btn-warning">Edit</button>
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                  <div class="btn-toolbar">
+                    <div class="btn-group">
+                      <a href="/editContent/<%=contents[i]._id%>" class="btn btn-warning"> 
+                        <span class="glyphicon glyphicon-edit"></span>
+                      </a>
+                      
+                      <a href="/removeContent/<%=contents[i]._id%>" class="btn btn-danger"> 
+                        <span class="glyphicon glyphicon-remove-sign"></span>
+                      </a>
+                    </div>
+                  </div>
                 </td>
               </tr>
             <% } %>

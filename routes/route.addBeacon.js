@@ -10,8 +10,6 @@ var CompaniesModel	= mongoose.model('CompaniesModel');
 
 // GET add new beacon page
 router.get('/addBeacon', auth_check, function (req, res, next) {
-	console.log('ROUTES : GET /addBeacon'); 
-	
 	res.render('addBeacon',{
 		title : 'Add New Beacon', 
 		error : {
@@ -22,7 +20,6 @@ router.get('/addBeacon', auth_check, function (req, res, next) {
 
 // POST /addBeacon page
 router.post('/addBeacon', auth_check, function (req, res, next) {
-	console.log('ROUTES : POST /addBeacon');
 
 	if ((req.body.uuid  !== undefined && req.body.uuid  !== '') &&
 	   (req.body.major  !== undefined && req.body.major !== '') &&
@@ -68,7 +65,7 @@ router.post('/addBeacon', auth_check, function (req, res, next) {
 						}
 					});
 				}
-		});
+			});
 
 	   	} else {
 	   		req.flash('info', 'Major and minor fields have to be a number.');

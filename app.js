@@ -75,7 +75,7 @@ var addBeacon     = require('./routes/route.addBeacon');
 var editBeacon    = require('./routes/route.editBeacon'); 
 var contents      = require('./routes/route.contents');
 var addContent    = require('./routes/route.addContent');
-
+var editContent   = require('./routes/route.editContent');
 
 app.use('/', index);
 app.use('/', users);
@@ -91,6 +91,7 @@ app.use('/', addBeacon);
 app.use('/', editBeacon); 
 app.use('/', contents);
 app.use('/', addContent);
+app.use('/', editContent);
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {

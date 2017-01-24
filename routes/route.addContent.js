@@ -40,7 +40,7 @@ router.post('/addContent', auth_check, function(req, res, next) {
 	console.log('ROUTE: POST /addContent');
 	console.log('content_title: ' + req.body.content_title);
 
-	if (req.body.content_title !== undefined && req.body.title !== '') {
+	if (req.body.content_title !== undefined && req.body.content_title !== '') {
 
 		DatabaseManager.getCompanyByUserID(req.session.user_id, function(err, company) {
 			if (err) {
@@ -52,6 +52,7 @@ router.post('/addContent', auth_check, function(req, res, next) {
 				var contentInstance = new ContentsModel({
 					title 	: req.body.content_title,
 					text 	: req.body.content_text,
+					beacon 	: [req.body.content_beacon], 
 					company : company
 				});
 

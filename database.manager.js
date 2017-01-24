@@ -99,6 +99,16 @@ var DatabaseManager = (function() {
 		});
 	};
 
+	var getBeaconsAliasByID = function(beacon_id, cb) {
+		BeaconsModel.findOne({_id : beacon_id}, function(err, beacon){
+			if(!err){
+				cb(null, beacon.alias); 
+			} else{
+				cb(err, null); 
+			}
+		});
+	}
+
 	return {
 		getCompanyByUserID: getCompanyByUserID,
 		getBeaconsListByUserID: getBeaconsListByUserID,
