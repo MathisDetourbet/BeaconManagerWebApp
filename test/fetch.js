@@ -2,9 +2,7 @@ var expect = require("chai").expect;
 var request = require("request");
 var url = "http://localhost:3000/";
 
-describe("Page access test", function() {
-
-  describe("Fetching home page", function() {
+describe("Page access test without login", function() {
     it("Home page", function() {
 	    url = url+ "home";
     	it("returns status 200", function() {
@@ -12,9 +10,7 @@ describe("Page access test", function() {
         		expect(response.statusCode).to.equal(200);
       		});
     	});
-    });});
-
-    describe("Fetching about page", function() {
+    });
     it("About page", function() {
         url = url+ "about";
         it("returns status 200", function() {
@@ -22,9 +18,7 @@ describe("Page access test", function() {
                         expect(response.statusCode).to.equal(200);
                 });
         });
-    });});
-
-    describe("Fetching contact page", function() {
+    });
     it("Contact page", function() {
         url = url+ "contact";
         it("returns status 200", function() {
@@ -32,7 +26,6 @@ describe("Page access test", function() {
                         expect(response.statusCode).to.equal(200);
                 });
         });
-    });});
+    });
 
   });
-
