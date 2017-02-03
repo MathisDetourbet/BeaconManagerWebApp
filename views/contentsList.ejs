@@ -37,12 +37,10 @@
                 <td><%=i+1%></td>
                 <td><%=contents[i].title%></td>
 
-                <%if(beaconsAliasList !== undefined){%>
-                <% for(var j=0; j<beaconsAliasList.length; j++) { %>
-                <td><%=beaconsAliasList[j]%></td>
-                <%}}else {%>
-                <td>No Beacon assigned</td>
+                <% for(var j=0; j<contents[i].beacon.length; j++) { %>
+                <td><%=contents[i].beacon[j].beacon_alias%></td>
                 <%}%>
+
                 <td>
                   <div class="btn-toolbar">
                     <div class="btn-group">

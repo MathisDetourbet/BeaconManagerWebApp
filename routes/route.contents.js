@@ -31,40 +31,29 @@ router.get('/contentsList', auth_check, function(req, res, next) {
 			});
 
 		} else {
-
-			var beaconsAliasList = [];
-			console.log("-------CONTENT-------",contents); 
-			
-			if(contents.beacon !== undefined && contents.beacon !== ''){
-
-				for (var i = 0; i < contents.beacon.length; i++) {
-					BeaconsModel.findOne({_id : new ObjectId(contents.beacon[i])}, function (err,beacon){
-						if(!err){
-							beaconsAliasList.push(beacon.alias); 
-						}
-					});
-				};
+			DatabaseManager.getBeaconsAliasByContents(contents, function(err, contents){
+				
 				res.render('contentsList',  {
 					title				: 'Contents list',
-					contents 			: contents,
-					beaconsAliasList	: beaconsAliasList, 
+					contents 			: contents, 
 					error   			: undefined 
 				});
-			} else{
-				res.render('contentsList',  {
-					title				: 'Contents list',
-					contents 			: contents,
-					beaconsAliasList	: [], 
-
-
-					error   			: undefined 
-				});
-			}
-			
-			
+			});
 			
 		}
 	});
+});
+
+router.get('/removeContent/:_id', function (req, res, next) {
+	ContentsModel.remove({_id: new ObjectId(req.params._id)}, function (err, result) {
+        if (!err) {
+        	res.redirect('/contentsList');
+        } else {
+        	console.log(err);
+            throw err;
+        }
+            
+    });
 });
 
 module.exports = router;

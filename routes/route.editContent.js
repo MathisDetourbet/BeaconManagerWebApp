@@ -12,6 +12,10 @@ var ContentsModel 	= mongoose.model('ContentsModel');
 router.get('/editContent/:_id', function (req, res, next) {
 	ContentsModel.findOne({_id : new ObjectId(req.params._id)}, function (err,content){
 		console.log("--------CONTENT--------", content); 
+		console.log("-----------CONTENT BEACON--------", content.beacon.length); 
+
+		
+
 		DatabaseManager.getBeaconsListByUserID(req.session.user_id, function(err, beacons) {
 			if (err) {
 				console.warn(err);
