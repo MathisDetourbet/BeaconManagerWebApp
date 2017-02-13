@@ -1,0 +1,39 @@
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$ ROUTES SANS AUTHENTIFICATION: $
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+- GET /home : renvoie la page home + 200
+- GET /about : renvoie la page about + 200
+- GET /contact : renvoie la page contact + 200
+- GET /login : renvoie la page login + 200
+- GET /registration : renvoie la page register + 200
+- GET /randomurl : ne renvoie rien + 404
+
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$ ROUTES APRES AUTHENTIFICATION: $
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+- GET /dashboard : renvoie la page dashboard + 200
+
+-----------Beacon section---------------
+- GET /beacons.json : renvoie le JSON des objets beacons + 200
+- GET /beaconsList : renvoie la page beaconsList + 200
+- GET /addBeacon : renvoie la page addBeacon + 200
+- GET /editBeacon/:GOOD_id : renvoie la page editBeacon + 200
+- GET /editBeacon/:BAD_id : renvoie l'erreur + 500
+- GET /removeBeacon/:_id : renvoie vers la page beaconsList + 200
+
+-----------Content section---------------
+- GET /contents.json : renvoie le JSON des objets contents + 200
+- GET /contentsList : renvoie la page contentsList + 200
+- GET /addContent : renvoie la page addContent + 200
+- GET /editContent/:GOOD_id : renvoie la page editContent + 200
+- GET /editContent/:BAD_id : renvoie l'erreur + 500
+- GET /removeContent/:_id : renvoie vers la page contentsList + 200
+
+-----------Company section---------------
+- GET /companies.json : renvoie le JSON des objets companies + 200
+
+-------------User section----------------
+- GET /users.json : renvoie le JSON des objets users + 200

@@ -34,5 +34,21 @@ describe("Page access test", function() {
         });
     });});
 
+    describe("Authentification", function(){
+        it('Should login', function(done){
+            url = url+"registration";
+            it('returns status 200', function(){
+                request
+                    .post(url)
+                    .field('email', "je.bojko@gmail.com")
+                    .field('password', "admin")
+                    .end(function(err, res, body){
+                        expect(response.statusCode).to.equal(200);
+                    })
+            })
+        })
+
+    });
+
   });
 
