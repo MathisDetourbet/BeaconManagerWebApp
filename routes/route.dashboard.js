@@ -15,7 +15,6 @@ router.get('/dashboard', auth_check, function(req, res, next) {
 			res.redirect('login');
 
 		} else {
-			console.log('company found: ' + company);
 			res.render('dashboard', { 
 				title				: 'Dashboard', 
 				company_name		: company.name, 

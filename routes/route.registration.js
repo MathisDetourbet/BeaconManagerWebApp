@@ -2,6 +2,7 @@ var express     = require('express');
 var sha1 		= require('sha1');
 var mongoose 	= require('mongoose');
 var bcrypt      = require('bcrypt-nodejs');
+var Helpers     = require('../helpers/helpers.js');
 
 var router          = express.Router();
 var UsersModel 		= mongoose.model('UsersModel');
@@ -18,15 +19,21 @@ router.post('/registration', function(req, res, next) {
 
 	if (req.body.password !== req.body.password_confirm) {
         console.log('Password Not identical');
-        req.flash('info', 'Passwords are not identical.');
+        req.flash('info', 'Passwords are not identicals.');
         res.redirect('registration');
+
+    } else if (!Helpers.validateEmail(req.body.email)) {
+        console.log('Email is not valid.');
+        req.flash('info', 'Email is not valid. Please enter valid email format.');
+        res.redirect('registration');
+
     } else {
     	// check if the company already exists
         CompaniesModel.findOne({
             name: req.body.name
 
         }, function (err, companiesList) {
-            console.log('Companies.find(): ' + companiesList);
+
             if (err) {
                 console.warn(err);
                 req.flash('info', 'Something went wrong on the server... Try again later.');
