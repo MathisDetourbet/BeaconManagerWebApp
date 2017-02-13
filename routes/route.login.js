@@ -28,7 +28,6 @@ router.post('/login', function(req, res, next) {
 			res.redirect('login');
 
 		} else {
-			console.log('user found: ' + user);
 			// user found in database with email given in the request body
 			// now we need to check the password
 			var givenPassword = req.body.password;
@@ -38,6 +37,7 @@ router.post('/login', function(req, res, next) {
 				// right password
 				// log the user in
 				req.session.user_id = user._id;
+				req.flash('user_connected', user);
 				res.redirect('/dashboard');
 			} else {
 				// bad password
