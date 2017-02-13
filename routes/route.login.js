@@ -38,6 +38,7 @@ router.post('/login', function(req, res, next) {
 				// right password
 				// log the user in
 				req.session.user_id = user._id;
+				req.flash('user_connected', user);
 				res.redirect('/dashboard');
 			} else {
 				// bad password
