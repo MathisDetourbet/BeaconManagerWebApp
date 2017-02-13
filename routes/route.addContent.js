@@ -54,12 +54,23 @@ router.post('/addContent', auth_check, function(req, res, next) {
 
 			} else {
 				console.log("CONTENT BEACON : ", req.body.content_beacon)
-				var contentInstance = new ContentsModel({
-					title 	: req.body.content_title,
-					text 	: req.body.content_text,
-					beacon 	: { beacon_id : req.body.content_beacon }, 
-					company : company
-				});
+
+				if(req.body.content_beacon == ""){
+					var contentInstance = new ContentsModel({
+						title 	: req.body.content_title,
+						text 	: req.body.content_text,
+						beacon 	: { beacon_id : null },
+						company : company
+					});
+				} else {
+					var contentInstance = new ContentsModel({
+						title 	: req.body.content_title,
+						text 	: req.body.content_text,
+						beacon 	: { beacon_id : req.body.content_beacon }, 
+						company : company
+					});
+				}
+				
 
 				console.log('contentInstance: ' + contentInstance);
 

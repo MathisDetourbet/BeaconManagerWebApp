@@ -104,36 +104,26 @@ var DatabaseManager = (function() {
 		for (var i = 0; i < contents.length; i++) {
 			for (var j = 0; j < contents[i].beacon.length; j++) {
 				beaconIdList.push(contents[i].beacon[j].beacon_id);
-			};
-		};
-		console.log("----------ARRAY ID BEACON----------"); 
-		console.log(beaconIdList); 
-		console.log("------------------------------------");
-			BeaconsModel.find({_id : {"$in":beaconIdList}}, function(err,beacons){
-				if(!err){
-					console.log("---------------BEACONS--------------"); 
-					console.log(beacons); 
-					console.log("------------------------------------");
-
-					for (var i = 0; i < contents.length; i++) {
-						for (var j = 0; j < contents[i].beacon.length; j++) {
-							for (var h = 0; h < beacons.length; h++) {
-								if( beacons[h]._id.equals(contents[i].beacon[j].beacon_id)){
-									contents[i].beacon[j].beacon_alias = beacons[h].alias;
-									console.log("YES PAPA"); 
-									console.log(beacons[h].alias); 
-								}
-							};
+			}
+		}
+		BeaconsModel.find({_id : {"$in":beaconIdList}}, function(err,beacons){
+			if(!err){
+				for (var i = 0; i < contents.length; i++) {
+					for (var j = 0; j < contents[i].beacon.length; j++) {
+						for (var h = 0; h < beacons.length; h++) {
+							if( beacons[h]._id.equals(contents[i].beacon[j].beacon_id)){
+								contents[i].beacon[j].beacon_alias = beacons[h].alias;
+								console.log("YES PAPA"); 
+								console.log(beacons[h].alias); 
+							}
 						};
 					};
-					console.log("----------NEW CONTENT LIST----------"); 
-					console.log(contents[0].beacon[0]); 
-					console.log("------------------------------------");
-					cb(null, contents); 
-				} else{
-					cb(err, null); 
-				}
-			});
+				};
+				cb(null, contents);
+			} else{
+				cb(err, null); 
+			}
+		});
 	
 		};
 
