@@ -17,20 +17,42 @@ router.get('/registration', function(req, res, next) {
 router.post('/registration', function(req, res, next) {
 	console.log('ROUTES: POST /registration');
 
-	if (req.body.password !== req.body.password_confirm) {
+    var company_name = req.body.company_name;
+    var first_name = req.body.first_name;
+    var last_name = req.body.last_name;
+    var email = req.body.email;
+    var password = req.body.password;
+    var password_confirm = req.body.password_confirm;
+
+	if (password !== password_confirm) {
         console.log('Password Not identical');
         req.flash('info', 'Passwords are not identicals.');
         res.redirect('registration');
 
-    } else if (!Helpers.validateEmail(req.body.email)) {
+    } else if (!Helpers.validateEmail(email)) {
         console.log('Email is not valid.');
         req.flash('info', 'Email is not valid. Please enter valid email format.');
+        res.redirect('registration');
+
+    } else if (company_name === undefined || company_name === null || company_name === "") {
+        console.log('Company name is empty.');
+        req.flash('info', 'Company name is empty.');
+        res.redirect('registration');        
+
+    } else if (first_name === undefined || first_name === null || first_name === "") {
+        console.log('First name is empty.');
+        req.flash('info', 'First name is empty.');
+        res.redirect('registration');
+
+    } else if (last_name === undefined || last_name === null || last_name === "") {
+        console.log('Last name is empty.');
+        req.flash('info', 'Last name is empty.');
         res.redirect('registration');
 
     } else {
     	// check if the company already exists
         CompaniesModel.findOne({
-            name: req.body.name
+            name: company_name
 
         }, function (err, companiesList) {
 
@@ -48,7 +70,7 @@ router.post('/registration', function(req, res, next) {
                 // the company does not exist in the database
                 // check if the user with the given email already exists
                 UsersModel.find({
-                    email: req.body.email
+                    email: email
 
                 }, function (err, usersList) {
                     if (err) {
@@ -62,21 +84,20 @@ router.post('/registration', function(req, res, next) {
                         res.redirect('registration');
 
                     } else {
-                        var pwd_hashed = bcrypt.hashSync(req.body.password);
+                        var pwd_hashed = bcrypt.hashSync(password);
 
                         var userInstance = new UsersModel({
-                            email           : req.body.email,
-                            first_name      : req.body.firstname,
-                            last_name       : req.body.lastname,
-                            email           : req.body.email,
+                            email           : email,
+                            first_name      : first_name,
+                            last_name       : last_name,
                             password        : pwd_hashed,
                             date_creation   : Date.now()
                         });
 
-                        var api_token = sha1(req.body.company_name);
+                        var api_token = sha1(company_name);
 
                         var companyInstance = new CompaniesModel({
-                            name        : req.body.company_name,
+                            name        : company_name,
                             users_staff : [userInstance],
                             api_token   : api_token
                         });
