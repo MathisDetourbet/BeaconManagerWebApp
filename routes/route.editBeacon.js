@@ -11,12 +11,13 @@ var BeaconsModel 	= mongoose.model('BeaconsModel');
 router.get('/editBeacon/:_id', function (req, res, next) {
 	BeaconsModel.findOne({_id : new ObjectId(req.params._id)}, function (err,beacon){
 		res.render('editBeacon',{
-			title 	: 'Edit Beacon', 
-			beacon 	: beacon,
-			id		: req.params._id,
-			error 	: {
-				message: req.flash('info')
-			}
+			title 		: 'Edit Beacon', 
+			beacon 		: beacon,
+			id			: req.params._id,
+			error 		: {
+							message: req.flash('info')
+						  },
+			page_name	: 'beacons'
 		}) 
 	}); 
 }); 

@@ -10,11 +10,7 @@ var ContentsModel 	= mongoose.model('ContentsModel');
 
 // GET edit content page
 router.get('/editContent/:_id', function (req, res, next) {
-	ContentsModel.findOne({_id : new ObjectId(req.params._id)}, function (err,content){
-		console.log("--------CONTENT--------", content); 
-		console.log("-----------CONTENT BEACON--------", content.beacon.length); 
-
-		
+	ContentsModel.findOne({_id : new ObjectId(req.params._id)}, function (err,content) {
 
 		DatabaseManager.getBeaconsListByUserID(req.session.user_id, function(err, beacons) {
 			if (err) {
@@ -22,7 +18,8 @@ router.get('/editContent/:_id', function (req, res, next) {
 				res.render('addContent', {  
 					title 				: 'Add content', 
 					beaconsAliasList 	: [], 
-					error				: 'Something went wrong on the server... Please try again later.' 
+					error				: 'Something went wrong on the server... Please try again later.',
+					page_name			: 'contents'
 				});
 			} else {
 				var beaconsAliasList = [];
@@ -38,7 +35,8 @@ router.get('/editContent/:_id', function (req, res, next) {
 					content 			: content,
 					id 					: req.params._id,
 					beaconsAliasList	: beaconsAliasList,
-					error				: undefined
+					error				: undefined,
+					page_name			: 'contents'
 				}) 
 			}
 		});

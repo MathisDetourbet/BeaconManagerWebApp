@@ -13,6 +13,10 @@
 
     <% include parts/nav.ejs %>
 
+    <% if (success !== undefined) { %>
+      <% include parts/success.ejs %>
+    <% } %>
+
       <div class="jumbotron">
         <h2>Welcome to RubyCon!</h2>
         <h3>An admin interface for beacon management</h3>

@@ -14,7 +14,8 @@ router.get('/addBeacon', auth_check, function (req, res, next) {
 		title : 'Add New Beacon', 
 		error : {
 			message: req.flash('info')
-		}
+		},
+		page_name: 'beacons'
 	})
 }); 
 

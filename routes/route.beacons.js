@@ -34,9 +34,10 @@ router.get('/beaconsList', auth_check, function (req, res, next) {
 
 		} else {
 			res.render('beaconsList', {
-				title : 'Beacons',
-				beacons : beacons,
-				error: undefined
+				title 		: 'Beacons',
+				beacons 	: beacons,
+				error		: undefined,
+				page_name 	: 'beacons'
 			});
 		}
 	});

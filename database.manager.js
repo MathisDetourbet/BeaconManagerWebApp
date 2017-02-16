@@ -17,6 +17,35 @@ var BeaconsModel 	= mongoose.model('BeaconsModel');
 var DatabaseManager = (function() {
 
 	/**
+	 * Get the user document by the user id
+	 * @param {number} user_id
+	 * @param {function} callback which returns the company document object or the error cb(err, user)
+	*/
+	var getUserByID = function(user_id, cb) {
+		if (user_id === undefined || user_id === '') {
+			console.log('User ID is not defined or empty: ' + user_id);
+			cb(null, null);
+
+		} else {
+			UsersModel.findOne({
+				_id: user_id
+
+			}, function(err, user) {
+				console.log('Result getUserByID: ' + user);
+				if (err) {
+					cb(err, null);
+
+				} else if (user === undefined || user === null || user === '') {
+					cb(null, null);
+
+				} else {
+					cb(null, user);
+				}
+			});
+		}
+	};
+
+	/**
 	 * Get the company document by the user id (req.body.session.user_id)
 	 * @param {number} user_id
 	 * @param {function} callback which returns the company document object or the error cb(err, company)
@@ -31,7 +60,7 @@ var DatabaseManager = (function() {
 				users_staff: { "$in": [user_id] }
 
 			}, function(err, company) {
-				console.log('result getCompanyByUserID: ' + company);
+				console.log('Result getCompanyByUserID: ' + company);
 				if (err) {
 					cb(err, null);
 
@@ -101,17 +130,19 @@ var DatabaseManager = (function() {
 
 	var getBeaconsAliasByContents = function(contents, cb) {
 		var beaconIdList = []; 
+		
 		for (var i = 0; i < contents.length; i++) {
 			for (var j = 0; j < contents[i].beacon.length; j++) {
 				beaconIdList.push(contents[i].beacon[j].beacon_id);
 			}
 		}
-		BeaconsModel.find({_id : {"$in":beaconIdList}}, function(err,beacons){
+
+		BeaconsModel.find({_id : {"$in":beaconIdList}}, function(err,beacons) {
 			if(!err){
 				for (var i = 0; i < contents.length; i++) {
 					for (var j = 0; j < contents[i].beacon.length; j++) {
 						for (var h = 0; h < beacons.length; h++) {
-							if( beacons[h]._id.equals(contents[i].beacon[j].beacon_id)){
+							if( beacons[h]._id.equals(contents[i].beacon[j].beacon_id)) {
 								contents[i].beacon[j].beacon_alias = beacons[h].alias;
 								console.log("YES PAPA"); 
 								console.log(beacons[h].alias); 
@@ -119,15 +150,18 @@ var DatabaseManager = (function() {
 						};
 					};
 				};
+
 				cb(null, contents);
-			} else{
+
+			} else {
 				cb(err, null); 
 			}
 		});
 	
-		};
+	};
 
 	return {
+		getUserByID					: getUserByID,
 		getCompanyByUserID			: getCompanyByUserID,
 		getBeaconsListByUserID		: getBeaconsListByUserID,
 		getContentsListByUserID		: getContentsListByUserID, 

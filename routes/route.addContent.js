@@ -27,14 +27,11 @@ router.get('/addContent', auth_check, function(req, res, next) {
 				});
 			}
 
-			console.log("---------BEACON ALIAS LIST----------");
-			console.log(beaconsAliasList);  
-			console.log("------------------------------------");
-
 			res.render('addContent', {  
 				title 				: 'Add content', 
 				beaconsAliasList 	: beaconsAliasList,
-				error				: undefined
+				error				: undefined,
+				page_name			: 'contents'
 			});
 		}
 	});
@@ -42,7 +39,6 @@ router.get('/addContent', auth_check, function(req, res, next) {
 
 router.post('/addContent', auth_check, function(req, res, next) {
 	console.log('ROUTE: POST /addContent');
-	console.log('content_title: ' + req.body.content_title);
 
 	if (req.body.content_title !== undefined && req.body.content_title !== '') {
 

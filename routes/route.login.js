@@ -6,7 +6,10 @@ var router 		= express.Router();
 var UsersModel 	= mongoose.model('UsersModel');
 
 router.get('/login', function(req, res, next) {
-	res.render('login', { error: { message: req.flash('info') } });
+	res.render('login', {
+		error		: { message: req.flash('info') },
+		page_name 	: 'login'	
+	});
 });
 
 router.post('/login', function(req, res, next) {

@@ -11,6 +11,10 @@ a {
   color: red;
 }
 
+#success_message {
+  color: green;
+}
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,

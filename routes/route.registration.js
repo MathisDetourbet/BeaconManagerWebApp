@@ -10,7 +10,11 @@ var CompaniesModel 	= mongoose.model('CompaniesModel');
 
 // GET /registration page
 router.get('/registration', function(req, res, next) {
-  	res.render('registration', { title: 'Registration', error: { message: req.flash('info') } } );
+  	res.render('registration', {
+        title       : 'Registration', 
+        error       : { message: req.flash('info') },
+        page_name   : 'registration'
+    });
 });
 
 // POST /registration page
@@ -107,23 +111,27 @@ router.post('/registration', function(req, res, next) {
                                 if (err.name == 'ValidationError') {
                                     for (field in err.errors) {
                                       console.log(field);
+                                      req.flash('info', 'Server error. Please try again.')
+                                      res.redirect('registration');
                                     }
 
                                 } else {
                                     // A general error (db, crypto, etc…)
                                     console.warn(err);
+                                    req.flash('info', 'Server error. Please try again.')
+                                    res.redirect('registration');
                                 }
 
                             } else {
-                                console.log('new user added to the database.');
+                                console.log('New user added to the database.');
 
                                 companyInstance.save(function(err) {
                                     if (err) {
                                         console.warn(err);
 
                                     } else {
-                                        console.log('new company added to the database.');
-                                        console.log('company: ' + companyInstance);
+                                        console.log('New company added to the database.');
+                                        req.flash('info', 'Registration successful!');
                                         res.redirect('home');
                                     }
                                 });

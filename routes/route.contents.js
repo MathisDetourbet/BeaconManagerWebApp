@@ -25,9 +25,10 @@ router.get('/contentsList', auth_check, function(req, res, next) {
 		if (err) {
 			console.warn(err);
 			res.render('contentsList', {  
-				title 	: 'Contents list', 
-				contents: [], 
-				error	: 'Something went wrong on the server... Please try again later.'
+				title 		: 'Contents list', 
+				contents 	: [], 
+				error		: 'Something went wrong on the server... Please try again later.',
+				page_name	: 'contents'
 			});
 
 		} else {
@@ -36,7 +37,8 @@ router.get('/contentsList', auth_check, function(req, res, next) {
 				res.render('contentsList',  {
 					title				: 'Contents list',
 					contents 			: contents, 
-					error   			: undefined 
+					error   			: undefined,
+					page_name			: 'contents'
 				});
 			});
 			

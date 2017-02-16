@@ -7,7 +7,12 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/home', function(req, res, next) {
-	res.render('index', { title: 'Admin interface' });
+	console.log('succes info : ' + req.flash('info'));
+	res.render('index', { 
+		title: 'Admin interface',
+		success: { message: req.flash('info') },
+		page_name: 'home'
+	});
 });
 
 module.exports = router;
