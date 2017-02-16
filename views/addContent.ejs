@@ -46,7 +46,7 @@
           <!-- Beacon -->
           <label class="control-label" for="content_beacon">Beacon</label>
           
-          <select class="form-control" name="content_beacon">
+          <select class="form-control" name="content_beacon" value="<%=beaconsAliasList[0]%>">
               <option value="">Select the beacon in the list</option>
               <% for (var i=0; i<beaconsAliasList.length; i++) { %>
                 <option value="<%=beaconsAliasList[i].beacon_id%>"><%= beaconsAliasList[i].alias %></option>

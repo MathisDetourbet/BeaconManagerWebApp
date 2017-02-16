@@ -28,7 +28,10 @@ router.get('/editContent/:_id', function (req, res, next) {
 				var beaconsAliasList = [];
 
 				for (var i = beacons.length - 1; i >= 0; i--) {
-					beaconsAliasList.push(beacons[i].alias);
+					beaconsAliasList.push({
+						"alias" 	: beacons[i].alias, 
+						"beacon_id" : beacons[i]._id
+					});
 				}
 
 				console.log('beaconsAliasList: ' + beaconsAliasList);
@@ -56,13 +59,13 @@ router.post('/patchContent/:_id', function (req, res, next) {
 		var  content = {
 			title	: req.body.content_title,
 			text	: req.body.content_text,
-			beacon	: [req.body.content_beacon]
+			beacon	: { beacon_id : req.body.content_beacon }
 		};
 
 		ContentsModel.update({_id  : new ObjectId(req.params._id)}, {$set: content}, function (err) {
 			if (!err) {
 				console.log("Content edited with success id: %s", content.id);
-				return res.redirect('/beaconsList'); 
+				return res.redirect('/contentsList'); 
 			} else {
 				if(err.name === 'ValidationError') {
 					res.statusCode = 400;
