@@ -8,6 +8,16 @@ var router 			= express.Router();
 var BeaconsModel 	= mongoose.model('BeaconsModel'); 
 var ContentsModel	= mongoose.model('ContentsModel'); 
 
+router.get('/api-beacons.json/:token', function(req, res, next) {
+	var token = req.params.token; 
+	DatabaseManager.getBeaconsListByToken(token, function(err, beacons) {
+		if (err) {
+			console.warn(err);
+		} else {
+			res.json(beacons);
+		}
+	});
+});
 
 router.get('/beacons.json', auth_check, function(req, res, next) {
 	DatabaseManager.getBeaconsListByUserID(req.session.user_id, function(err, beacons) {
