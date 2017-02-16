@@ -7,6 +7,7 @@ var Helpers     = require('../helpers/helpers.js');
 var router          = express.Router();
 var UsersModel 		= mongoose.model('UsersModel');
 var CompaniesModel 	= mongoose.model('CompaniesModel');
+var BeaconsModel     = mongoose.model('BeaconsModel'); 
 
 // GET /registration page
 router.get('/registration', function(req, res, next) {
@@ -131,8 +132,21 @@ router.post('/registration', function(req, res, next) {
 
                                     } else {
                                         console.log('New company added to the database.');
-                                        req.flash('info', 'Registration successful!');
-                                        res.redirect('home');
+                                        var beaconStart = new BeaconsModel({
+                                            uuid    : 1111, 
+                                            major   : 1, 
+                                            minor   : 1, 
+                                            alias   : "No beacon assigned", 
+                                            company : companyInstance._id
+                                        }); 
+                                        beaconStart.save(function (err) {
+                                            if (err) {
+                                                console.warn(err); 
+                                            } else {
+                                                req.flash('info', 'Registration successful!');
+                                                res.redirect('home');
+                                            }
+                                        })
                                     }
                                 });
                             }
